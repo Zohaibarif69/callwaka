@@ -26,6 +26,17 @@ interface Props {
    * status.
    */
   live?: LiveCallInfo;
+  /**
+   * Safety net for live calls: if the elapsed time (measured from
+   * live.startedAt) ever exceeds this, the modal force-closes itself and
+   * calls onDone, even though the parent hasn't seen a terminal status yet.
+   * This covers the case where CALL-E's webhook never reaches the app
+   * (e.g. APP_BASE_URL misconfigured, or the cron safety net hasn't run
+   * yet) — real phone calls basically never run this long, so it's safe to
+   * assume something has gone wrong and stop showing "calling…" forever.
+   * Defaults to 10 minutes.
+   */
+  maxLiveMs?: number;
 }
 
 const INITIAL_EVENTS = ["Connected", "Ticket number identified", "Checking appointment availability…"];
@@ -51,6 +62,7 @@ export default function ActiveCallModal({
   onDone,
   durationMs = 5000,
   live,
+  maxLiveMs = 10 * 60 * 1000,
 }: Props) {
   const [elapsed, setElapsed] = useState(0);
   const [visibleEvents, setVisibleEvents] = useState(1);
@@ -89,11 +101,17 @@ export default function ActiveCallModal({
     if (!live || !open) return;
 
     const startedAtMs = new Date(live.startedAt).getTime();
-    const tick = () => setElapsed(Math.max(0, Math.floor((Date.now() - startedAtMs) / 1000)));
+    const tick = () => {
+      const elapsedMs = Date.now() - startedAtMs;
+      setElapsed(Math.max(0, Math.floor(elapsedMs / 1000)));
+      // Backend never reported a terminal status (missed/misconfigured
+      // webhook, cron hasn't caught up yet) — stop trusting it and close.
+      if (elapsedMs > maxLiveMs) onDone();
+    };
     tick();
     const interval = setInterval(tick, 1000);
     return () => clearInterval(interval);
-  }, [live, open]);
+  }, [live, open, maxLiveMs, onDone]);
 
   useEffect(() => {
     if (!live) return;

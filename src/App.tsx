@@ -246,6 +246,11 @@ export default function App() {
     return () => clearInterval(interval);
   }, [demoMode, pollLiveCall]);
 
+  // Called either when polling sees a terminal status, or when the modal's
+  // own max-duration safety net fires because the backend never told us the
+  // call ended (missed webhook). Either way, stop showing "calling…".
+  const handleLiveCallDone = useCallback(() => setLiveCall(null), []);
+
   const addToast = useCallback((message: string, type: ToastItem["type"] = "info") => {
     setToasts((t) => [...t, makeToast(message, type)]);
   }, []);
@@ -400,7 +405,7 @@ export default function App() {
           open={!!liveCall}
           counterparty={liveCall?.counterparty.name ?? ""}
           caseRef={liveCall?.case_title ?? ""}
-          onDone={() => setLiveCall(null)}
+          onDone={handleLiveCallDone}
           live={
             liveCall
               ? { status: liveCall.status, startedAt: liveCall.timestamp, purpose: liveCall.purpose }
