@@ -65,7 +65,7 @@ export default function Cases({ navigate, demoCase, onCaseCreated }: Props) {
       <div className="flex items-start justify-between gap-4">
         <div>
           <h1 className="text-2xl font-semibold text-gray-900">Cases</h1>
-          <p className="text-sm text-gray-500 mt-1">Track every problem Kept is working on.</p>
+          <p className="text-sm text-gray-500 mt-1">Track every problem Callwaka is working on.</p>
         </div>
         <button
           onClick={() => setShowModal(true)}
@@ -118,7 +118,7 @@ export default function Cases({ navigate, demoCase, onCaseCreated }: Props) {
         <EmptyState
           icon={<Briefcase className="size-8" />}
           title="No cases yet"
-          description="Give Kept a problem to handle and it will track the follow-through for you."
+          description="Give Callwaka a problem to handle and it will track the follow-through for you."
           action={
             <button
               onClick={() => setShowModal(true)}

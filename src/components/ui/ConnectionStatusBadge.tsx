@@ -33,7 +33,7 @@ export default function ConnectionStatusBadge() {
       title={!isLive && reason ? `Live connection failed: ${reason}` : undefined}
     >
       <span className={`h-1.5 w-1.5 rounded-full ${isLive ? "bg-emerald-500" : "bg-amber-500"}`} aria-hidden="true" />
-      {isLive ? "Live — connected to CALL-E" : "Showing sample data"}
+      {isLive ? "Live — connected to CALL-E" : "Preview data"}
     </div>
   );
 }

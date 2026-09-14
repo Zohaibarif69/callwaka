@@ -49,7 +49,7 @@ export default function Commitments({ navigate }: Props) {
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-semibold text-gray-900">Commitments</h1>
-        <p className="text-sm text-gray-500 mt-1">Every promise Kept is tracking.</p>
+        <p className="text-sm text-gray-500 mt-1">Every promise Callwaka is tracking.</p>
       </div>
 
       <div className="overflow-x-auto -mx-4 px-4 sm:mx-0 sm:px-0">
@@ -79,7 +79,7 @@ export default function Commitments({ navigate }: Props) {
         <EmptyState
           icon={<Target className="size-8" />}
           title="No commitments yet"
-          description="Once Kept secures a promise during a call, it will appear here."
+          description="Once Callwaka secures a promise during a call, it will appear here."
         />
       ) : (
         <>

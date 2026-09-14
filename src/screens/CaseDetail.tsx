@@ -162,7 +162,7 @@ export default function CaseDetail({ caseId, navigate, demoCase }: Props) {
         {confirmingCancel && (
           <div className="mb-3 flex flex-wrap items-center gap-3 rounded-lg border border-amber-200 bg-amber-50 px-4 py-3">
             <p className="text-sm text-amber-800 flex-1 min-w-[200px]">
-              Stop tracking this case? Kept won't place any more verification or
+              Stop tracking this case? Callwaka won't place any more verification or
               escalation calls for it. This can't be undone.
             </p>
             <div className="flex items-center gap-2">
@@ -216,7 +216,7 @@ export default function CaseDetail({ caseId, navigate, demoCase }: Props) {
                 {commitment?.description} was not fulfilled by the deadline.
               </p>
               {c.escalation_count > 0 && (
-                <p className="text-sm text-red-600 mt-2 font-medium">Kept is handling this.</p>
+                <p className="text-sm text-red-600 mt-2 font-medium">Callwaka is handling this.</p>
               )}
             </div>
           </div>
@@ -271,7 +271,7 @@ export default function CaseDetail({ caseId, navigate, demoCase }: Props) {
               </div>
             </div>
           ) : (
-            <p className="text-sm text-gray-400">No commitment yet. Kept will secure one on the next call.</p>
+            <p className="text-sm text-gray-400">No commitment yet. Callwaka will secure one on the next call.</p>
           )}
         </div>
 
@@ -289,10 +289,10 @@ export default function CaseDetail({ caseId, navigate, demoCase }: Props) {
               </div>
               <p className="text-sm text-gray-500 leading-relaxed">
                 {nextAction.type === "verify"
-                  ? "Kept will check whether the promise was kept."
+                  ? "Callwaka will check whether the promise was kept."
                   : nextAction.type === "escalate"
-                  ? "Kept will escalate because the previous commitment was broken."
-                  : `Kept will perform a ${nextAction.type}.`}
+                  ? "Callwaka will escalate because the previous commitment was broken."
+                  : `Callwaka will perform a ${nextAction.type}.`}
               </p>
               <span className="inline-flex items-center text-xs font-medium text-blue-700 bg-blue-50 px-2.5 py-1 rounded-full">
                 Scheduled
@@ -304,7 +304,7 @@ export default function CaseDetail({ caseId, navigate, demoCase }: Props) {
               No further action needed.
             </div>
           ) : (
-            <p className="text-sm text-gray-400">Kept will determine the next action after the current commitment resolves.</p>
+            <p className="text-sm text-gray-400">Callwaka will determine the next action after the current commitment resolves.</p>
           )}
         </div>
 

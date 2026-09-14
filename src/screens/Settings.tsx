@@ -120,7 +120,7 @@ export default function Settings() {
       <Section icon={<Phone className="size-4" />} title="Phone">
         <SettingRow
           label="Your phone number"
-          description="Kept may use this for verification callbacks."
+          description="Callwaka may use this for verification callbacks."
           control={
             <input
               type="tel"
@@ -143,7 +143,7 @@ export default function Settings() {
         />
         <SettingRow
           label="New commitment"
-          description="Alert when Kept secures a new promise."
+          description="Alert when Callwaka secures a new promise."
           control={
             <Toggle value={notifyCommitment} onChange={setNotifyCommitment} label="New commitment notifications" />
           }
@@ -160,7 +160,7 @@ export default function Settings() {
       <Section icon={<Zap className="size-4" />} title="Automation">
         <SettingRow
           label="Automatic escalation"
-          description="Kept will call again if a promise is broken."
+          description="Callwaka will call again if a promise is broken."
           control={
             <Toggle value={autoEscalate} onChange={setAutoEscalate} label="Automatic escalation" />
           }

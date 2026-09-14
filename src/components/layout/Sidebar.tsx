@@ -7,7 +7,7 @@ import {
   Settings,
 } from "lucide-react";
 import type { NavigateFn, Route } from "../../types";
-import KeptLogo from "../ui/KeptLogo";
+import CallwakaLogo from "../ui/CallwakaLogo";
 
 interface NavItem {
   label: string;
@@ -55,9 +55,9 @@ export default function Sidebar({ currentPage, navigate }: Props) {
         <button
           onClick={() => navigate({ page: "overview" })}
           className="hover:opacity-80 transition-opacity focus:outline-none"
-          aria-label="kept — go to overview"
+          aria-label="callwaka — go to overview"
         >
-          <KeptLogo />
+          <CallwakaLogo />
         </button>
       </div>
 

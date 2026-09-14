@@ -1,4 +1,4 @@
-# Kept
+# Callwaka
 
 An autonomous phone agent that turns a verbal promise ("a technician will arrive Friday 9am-1pm") into a tracked **Case** — calling, verifying, escalating, and following up until the promise is actually kept.
 
@@ -32,7 +32,7 @@ Without a key, everything still runs — case creation, the dashboard, the "know
 
 `src/lib/db.ts` uses [Turso](https://turso.tech/)'s client (libSQL), which can point at either a local file or a real cloud database — same SQL, same API, zero code differences:
 
-- **No `TURSO_DATABASE_URL` set** (the default) → writes to a local file (`./data/kept.db`). This is what local dev and `npm run test:state-machine` use — no Turso account, no network call, nothing to sign up for.
+- **No `TURSO_DATABASE_URL` set** (the default) → writes to a local file (`./data/callwaka.db`). This is what local dev and `npm run test:state-machine` use — no Turso account, no network call, nothing to sign up for.
 - **`TURSO_DATABASE_URL` + `TURSO_AUTH_TOKEN` set** → writes to your real Turso database instead, so data survives Vercel redeploys.
 
 This means testing locally is testing the *real* database code, not a stand-in — the only thing that changes between your laptop and production is which file/URL it's pointed at.
@@ -41,12 +41,12 @@ This means testing locally is testing the *real* database code, not a stand-in �
 
 1. **Case created** — either with a commitment you already know (`commitment` + `deadline` fields), which skips straight to "waiting", or with just a problem description, which places a real CALL-E call to go secure one.
 2. **CALL-E calls the counterparty**, gets a specific promise (what, when, reference number), and reads it back to confirm before hanging up.
-3. **Kept waits.** A commitment is stored with a `due_at`. Nothing happens until that time arrives.
+3. **Callwaka waits.** A commitment is stored with a `due_at`. Nothing happens until that time arrives.
 4. **Scheduler wakes up** (`/api/cron/check-due`, wired to Vercel Cron every 15 minutes in `vercel.json`) and finds commitments whose deadline has passed.
 5. **Verification call** goes out — usually to the user ("did the technician show up?"), asking for a plain yes/no.
 6. **Branch:**
    - Fulfilled → case closes, marked `resolved`.
-   - Broken → commitment marked `broken`, and Kept **automatically** places an escalation call — no human has to click anything.
+   - Broken → commitment marked `broken`, and Callwaka **automatically** places an escalation call — no human has to click anything.
 7. **Escalation call** references the prior ticket number and the broken promise, and works toward a *new* commitment, which restarts the loop from step 3.
 8. This repeats until resolved or the escalation limit (`escalation_limit`, defaults to 3) is hit — at which point the case is marked `failed` and flagged for a human.
 
@@ -126,9 +126,9 @@ This proves the live/fallback UI switch actually works: it points the real `api.
    ```bash
    npm install -g @turso/cli   # or: curl -sSfL https://get.tur.so/install.sh | bash
    turso auth login
-   turso db create kept
-   turso db show kept --url          # -> TURSO_DATABASE_URL
-   turso db tokens create kept       # -> TURSO_AUTH_TOKEN
+   turso db create callwaka
+   turso db show callwaka --url          # -> TURSO_DATABASE_URL
+   turso db tokens create callwaka       # -> TURSO_AUTH_TOKEN
    ```
    Same code, same SQL, both locally and in production — `src/lib/db.ts` just points at a local file when these two env vars are unset, and at your real Turso database when they're set.
 

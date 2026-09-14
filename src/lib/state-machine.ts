@@ -5,7 +5,7 @@ import type { CallOutcome, CallStatus } from "../types";
 
 /**
  * Call 1 — Initial Engagement.
- * User hands Kept a problem; Kept opens a Case and places the first CALL-E
+ * User hands Callwaka a problem; Callwaka opens a Case and places the first CALL-E
  * call to the counterparty to secure a specific commitment.
  */
 export async function startCase(input: {
@@ -49,7 +49,7 @@ export async function startCase(input: {
     callId: callRow.id,
     type: "call_started",
     title: `Calling ${input.counterpartyName}`,
-    description: "Kept is on the phone securing a commitment.",
+    description: "Callwaka is on the phone securing a commitment.",
   });
 
   const finalCaseRow = await repo.getCaseRow(caseRow.id);
@@ -58,7 +58,7 @@ export async function startCase(input: {
 
 /**
  * Alternate path into a Case: the user already knows what was promised
- * (e.g. they already had the call themselves) and just wants Kept to track
+ * (e.g. they already had the call themselves) and just wants Callwaka to track
  * and enforce it — no initial CALL-E call needed, go straight to "waiting".
  */
 export async function startCaseWithKnownCommitment(input: {
@@ -92,7 +92,7 @@ export async function startCaseWithKnownCommitment(input: {
     caseId: caseRow.id,
     type: "commitment_created",
     title: "Commitment recorded",
-    description: `${commitment.description} — due ${commitment.due_at}. Kept will verify once this comes due.`,
+    description: `${commitment.description} — due ${commitment.due_at}. Callwaka will verify once this comes due.`,
   });
 
   const finalCaseRow = await repo.getCaseRow(caseRow.id);
@@ -164,7 +164,7 @@ export async function escalateCase(caseId: string) {
       caseId,
       type: "human_intervention_required",
       title: "Escalation limit reached",
-      description: `Kept escalated ${caseRow.escalation_limit} times without resolution. This case needs a human.`,
+      description: `Callwaka escalated ${caseRow.escalation_limit} times without resolution. This case needs a human.`,
     });
     return null;
   }
@@ -242,7 +242,7 @@ export async function handleCallResult(
   // person cancels the case. We still record what happened above for the
   // audit trail, but we must not let it trigger anything further — no new
   // commitment, no escalation call — for a case the person explicitly told
-  // Kept to stop working on.
+  // Callwaka to stop working on.
   const caseRow = await repo.getCaseRow(callRow.case_id);
   if (caseRow?.status === "cancelled") {
     await repo.insertEvent({
@@ -265,7 +265,7 @@ export async function handleCallResult(
 }
 
 /**
- * Stops Kept from doing anything further on a case: no more verification
+ * Stops Callwaka from doing anything further on a case: no more verification
  * calls, no more escalation calls. Any pending commitment is marked
  * "cancelled" too, so the due-commitment scheduler naturally skips it from
  * here on — no separate check needed in checkDueCommitments. This does not
@@ -316,7 +316,7 @@ async function onInitialCallResult(
       callId: callRow.id,
       type: "call_failed",
       title: "Could not secure a commitment",
-      description: `Call outcome: ${outcome}. Kept needs another attempt or human input.`,
+      description: `Call outcome: ${outcome}. Callwaka needs another attempt or human input.`,
     });
     return;
   }
@@ -374,7 +374,7 @@ async function onVerificationResult(
     callId: callRow.id,
     type: "commitment_broken",
     title: "Commitment broken",
-    description: `"${commitment.description}" was not fulfilled. Kept is escalating automatically.`,
+    description: `"${commitment.description}" was not fulfilled. Callwaka is escalating automatically.`,
   });
 
   // Autonomous follow-through: broken promise -> escalate immediately, no human click required.
@@ -407,7 +407,7 @@ async function onEscalationResult(
       callId: callRow.id,
       type: "escalation_completed",
       title: "Escalation did not secure a new commitment",
-      description: `Outcome: ${outcome}. Kept will retry escalation on the next cycle.`,
+      description: `Outcome: ${outcome}. Callwaka will retry escalation on the next cycle.`,
     });
     return;
   }

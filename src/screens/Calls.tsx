@@ -52,7 +52,7 @@ export default function Calls({ navigate }: Props) {
       <div>
         <h1 className="text-2xl font-semibold text-gray-900">Calls</h1>
         <p className="text-sm text-gray-500 mt-1">
-          Every conversation Kept has had on your behalf.
+          Every conversation Callwaka has had on your behalf.
         </p>
       </div>
 
@@ -84,7 +84,7 @@ export default function Calls({ navigate }: Props) {
         <EmptyState
           icon={<Phone className="size-8" />}
           title="No calls yet"
-          description="Calls made by Kept will appear here."
+          description="Calls made by Callwaka will appear here."
         />
       ) : (
         <>

@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import * as sm from "@/src/lib/state-machine";
 
 /**
- * This is Kept's "scheduler / wait state" from the project doc — the thing
+ * This is Callwaka's "scheduler / wait state" from the project doc — the thing
  * that notices a commitment's due_at has arrived and calls to verify it,
  * without a human clicking anything. Wire it up as a Vercel Cron job
  * (see vercel.json) hitting this route on a schedule, e.g. every 15 minutes.

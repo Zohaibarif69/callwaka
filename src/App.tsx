@@ -29,7 +29,7 @@ const DEMO_STAGES: Array<{
   // 1 case created
   { durationMs: 3500, toast: { message: "Case created: ISP Technician Appointment", type: "success" } },
   // 2 calling ISP
-  { durationMs: 6000, toast: { message: "Kept is calling ISP Support…", type: "info" }, showCall: true },
+  { durationMs: 6000, toast: { message: "Callwaka is calling ISP Support…", type: "info" }, showCall: true },
   // 3 commitment recorded
   { durationMs: 3500, toast: { message: "Commitment recorded: Saturday 2–4 PM, Ticket #88213", type: "success" } },
   // 4 waiting
@@ -48,7 +48,7 @@ const DEMO_STAGES: Array<{
 
 function buildDemoCase(stage: number): Case {
   const base: Case = {
-    id: "demo_001",
+    id: "preview_001",
     title: "ISP Technician Appointment",
     description: "My ISP promised a technician Friday between 9 AM and 1 PM. Make sure they actually show up.",
     counterparty: { name: "ISP Support", phone: "+1 (800) 555-0199" },
@@ -70,7 +70,7 @@ function buildDemoCase(stage: number): Case {
       ...base,
       status: "tracking",
       timeline: [
-        { id: "d1", case_id: "demo_001", type: "case_created", timestamp: now, title: "Case created", description: "ISP Technician Appointment case opened." },
+        { id: "d1", case_id: "preview_001", type: "case_created", timestamp: now, title: "Case created", description: "ISP Technician Appointment case opened." },
       ],
     };
   }
@@ -80,8 +80,8 @@ function buildDemoCase(stage: number): Case {
       ...base,
       status: "tracking",
       timeline: [
-        { id: "d1", case_id: "demo_001", type: "case_created", timestamp: yesterday, title: "Case created", description: "ISP Technician Appointment case opened." },
-        { id: "d2", case_id: "demo_001", type: "call_started", timestamp: now, title: "Call in progress", description: "Reaching ISP Support to secure a commitment." },
+        { id: "d1", case_id: "preview_001", type: "case_created", timestamp: yesterday, title: "Case created", description: "ISP Technician Appointment case opened." },
+        { id: "d2", case_id: "preview_001", type: "call_started", timestamp: now, title: "Call in progress", description: "Reaching ISP Support to secure a commitment." },
       ],
     };
   }
@@ -93,9 +93,9 @@ function buildDemoCase(stage: number): Case {
       current_commitment: { id: "dc1", description: "Technician visit", due_at: new Date(Date.now() + 86400000 * 2).toISOString(), status: "pending", verification_method: "user_confirm" },
       next_action: { type: "verify", scheduled_at: new Date(Date.now() + 86400000 * 2 + 3600000 * 4).toISOString(), description: "Verify technician arrival" },
       timeline: [
-        { id: "d1", case_id: "demo_001", type: "case_created", timestamp: yesterday, title: "Case created", description: "ISP Technician Appointment case opened." },
-        { id: "d2", case_id: "demo_001", type: "call_completed", timestamp: now, title: "Initial call completed", description: "ISP Support confirmed appointment.", call_id: "call_001" },
-        { id: "d3", case_id: "demo_001", type: "commitment_created", timestamp: now, title: "Commitment recorded", description: "Technician visit Saturday 2–4 PM. Ticket #88213." },
+        { id: "d1", case_id: "preview_001", type: "case_created", timestamp: yesterday, title: "Case created", description: "ISP Technician Appointment case opened." },
+        { id: "d2", case_id: "preview_001", type: "call_completed", timestamp: now, title: "Initial call completed", description: "ISP Support confirmed appointment.", call_id: "call_001" },
+        { id: "d3", case_id: "preview_001", type: "commitment_created", timestamp: now, title: "Commitment recorded", description: "Technician visit Saturday 2–4 PM. Ticket #88213." },
       ],
     };
   }
@@ -107,9 +107,9 @@ function buildDemoCase(stage: number): Case {
       current_commitment: { id: "dc1", description: "Technician visit", due_at: new Date(Date.now() + 3600000).toISOString(), status: "pending", verification_method: "user_confirm" },
       next_action: { type: "verify", scheduled_at: new Date(Date.now() + 3600000 * 2).toISOString(), description: "Verify technician arrival" },
       timeline: [
-        { id: "d1", case_id: "demo_001", type: "case_created", timestamp: yesterday, title: "Case created", description: "ISP Technician Appointment case opened." },
-        { id: "d2", case_id: "demo_001", type: "call_completed", timestamp: yesterday, title: "Initial call completed", description: "ISP Support confirmed appointment.", call_id: "call_001" },
-        { id: "d3", case_id: "demo_001", type: "commitment_created", timestamp: yesterday, title: "Commitment recorded", description: "Technician visit Saturday 2–4 PM." },
+        { id: "d1", case_id: "preview_001", type: "case_created", timestamp: yesterday, title: "Case created", description: "ISP Technician Appointment case opened." },
+        { id: "d2", case_id: "preview_001", type: "call_completed", timestamp: yesterday, title: "Initial call completed", description: "ISP Support confirmed appointment.", call_id: "call_001" },
+        { id: "d3", case_id: "preview_001", type: "commitment_created", timestamp: yesterday, title: "Commitment recorded", description: "Technician visit Saturday 2–4 PM." },
       ],
     };
   }
@@ -121,10 +121,10 @@ function buildDemoCase(stage: number): Case {
       current_commitment: { id: "dc1", description: "Technician visit", due_at: new Date().toISOString(), status: "pending", verification_method: "user_confirm" },
       next_action: { type: "verify", scheduled_at: new Date().toISOString(), description: "Verify technician arrival" },
       timeline: [
-        { id: "d1", case_id: "demo_001", type: "case_created", timestamp: yesterday, title: "Case created", description: "ISP Technician Appointment case opened." },
-        { id: "d2", case_id: "demo_001", type: "call_completed", timestamp: yesterday, title: "Initial call completed", description: "ISP Support confirmed appointment.", call_id: "call_001" },
-        { id: "d3", case_id: "demo_001", type: "commitment_created", timestamp: yesterday, title: "Commitment recorded", description: "Technician visit Saturday 2–4 PM." },
-        { id: "d4", case_id: "demo_001", type: "verification_started", timestamp: now, title: "Verification started", description: "Kept is checking whether the technician arrived." },
+        { id: "d1", case_id: "preview_001", type: "case_created", timestamp: yesterday, title: "Case created", description: "ISP Technician Appointment case opened." },
+        { id: "d2", case_id: "preview_001", type: "call_completed", timestamp: yesterday, title: "Initial call completed", description: "ISP Support confirmed appointment.", call_id: "call_001" },
+        { id: "d3", case_id: "preview_001", type: "commitment_created", timestamp: yesterday, title: "Commitment recorded", description: "Technician visit Saturday 2–4 PM." },
+        { id: "d4", case_id: "preview_001", type: "verification_started", timestamp: now, title: "Verification started", description: "Callwaka is checking whether the technician arrived." },
       ],
     };
   }
@@ -136,10 +136,10 @@ function buildDemoCase(stage: number): Case {
       current_commitment: { id: "dc1", description: "Technician visit", due_at: new Date(Date.now() - 3600000).toISOString(), status: "broken", verification_method: "user_confirm" },
       next_action: { type: "escalate", scheduled_at: new Date().toISOString(), description: "Escalation call to ISP Support" },
       timeline: [
-        { id: "d1", case_id: "demo_001", type: "case_created", timestamp: yesterday, title: "Case created", description: "ISP Technician Appointment case opened." },
-        { id: "d2", case_id: "demo_001", type: "call_completed", timestamp: yesterday, title: "Initial call completed", description: "ISP Support confirmed appointment.", call_id: "call_001" },
-        { id: "d3", case_id: "demo_001", type: "commitment_created", timestamp: yesterday, title: "Commitment recorded", description: "Technician visit Saturday 2–4 PM." },
-        { id: "d4", case_id: "demo_001", type: "commitment_broken", timestamp: now, title: "Promise broken", description: "Technician did not arrive during the promised window." },
+        { id: "d1", case_id: "preview_001", type: "case_created", timestamp: yesterday, title: "Case created", description: "ISP Technician Appointment case opened." },
+        { id: "d2", case_id: "preview_001", type: "call_completed", timestamp: yesterday, title: "Initial call completed", description: "ISP Support confirmed appointment.", call_id: "call_001" },
+        { id: "d3", case_id: "preview_001", type: "commitment_created", timestamp: yesterday, title: "Commitment recorded", description: "Technician visit Saturday 2–4 PM." },
+        { id: "d4", case_id: "preview_001", type: "commitment_broken", timestamp: now, title: "Promise broken", description: "Technician did not arrive during the promised window." },
       ],
     };
   }
@@ -152,11 +152,11 @@ function buildDemoCase(stage: number): Case {
       current_commitment: { id: "dc1", description: "Technician visit", due_at: new Date(Date.now() - 3600000).toISOString(), status: "broken", verification_method: "user_confirm" },
       next_action: { type: "escalate", scheduled_at: new Date().toISOString(), description: "Escalation call in progress" },
       timeline: [
-        { id: "d1", case_id: "demo_001", type: "case_created", timestamp: yesterday, title: "Case created", description: "ISP Technician Appointment case opened." },
-        { id: "d2", case_id: "demo_001", type: "call_completed", timestamp: yesterday, title: "Initial call completed", description: "ISP Support confirmed appointment.", call_id: "call_001" },
-        { id: "d3", case_id: "demo_001", type: "commitment_created", timestamp: yesterday, title: "Commitment recorded", description: "Technician visit Saturday 2–4 PM." },
-        { id: "d4", case_id: "demo_001", type: "commitment_broken", timestamp: yesterday, title: "Promise broken", description: "Technician did not arrive during the promised window." },
-        { id: "d5", case_id: "demo_001", type: "escalation_started", timestamp: now, title: "Escalation call started", description: "Kept is contacting ISP Support and referencing ticket #88213 and the missed appointment." },
+        { id: "d1", case_id: "preview_001", type: "case_created", timestamp: yesterday, title: "Case created", description: "ISP Technician Appointment case opened." },
+        { id: "d2", case_id: "preview_001", type: "call_completed", timestamp: yesterday, title: "Initial call completed", description: "ISP Support confirmed appointment.", call_id: "call_001" },
+        { id: "d3", case_id: "preview_001", type: "commitment_created", timestamp: yesterday, title: "Commitment recorded", description: "Technician visit Saturday 2–4 PM." },
+        { id: "d4", case_id: "preview_001", type: "commitment_broken", timestamp: yesterday, title: "Promise broken", description: "Technician did not arrive during the promised window." },
+        { id: "d5", case_id: "preview_001", type: "escalation_started", timestamp: now, title: "Escalation call started", description: "Callwaka is contacting ISP Support and referencing ticket #88213 and the missed appointment." },
       ],
     };
   }
@@ -169,13 +169,13 @@ function buildDemoCase(stage: number): Case {
       current_commitment: { id: "dc2", description: "Replacement technician visit", due_at: new Date(Date.now() + 86400000).toISOString(), status: "pending", verification_method: "user_confirm" },
       next_action: { type: "verify", scheduled_at: new Date(Date.now() + 86400000 + 3600000 * 4).toISOString(), description: "Verify replacement technician arrival" },
       timeline: [
-        { id: "d1", case_id: "demo_001", type: "case_created", timestamp: yesterday, title: "Case created", description: "ISP Technician Appointment case opened." },
-        { id: "d2", case_id: "demo_001", type: "call_completed", timestamp: yesterday, title: "Initial call completed", description: "ISP Support confirmed appointment.", call_id: "call_001" },
-        { id: "d3", case_id: "demo_001", type: "commitment_created", timestamp: yesterday, title: "Commitment recorded", description: "Technician visit Saturday 2–4 PM." },
-        { id: "d4", case_id: "demo_001", type: "commitment_broken", timestamp: yesterday, title: "Promise broken", description: "Technician did not arrive during the promised window." },
-        { id: "d5", case_id: "demo_001", type: "escalation_started", timestamp: yesterday, title: "Escalation call started", description: "Kept is contacting ISP Support." },
-        { id: "d6", case_id: "demo_001", type: "escalation_completed", timestamp: now, title: "Escalation resolved", description: "New appointment secured after escalation." },
-        { id: "d7", case_id: "demo_001", type: "commitment_created", timestamp: now, title: "New commitment recorded", description: "Replacement technician visit Saturday 2–4 PM. Reference #88213." },
+        { id: "d1", case_id: "preview_001", type: "case_created", timestamp: yesterday, title: "Case created", description: "ISP Technician Appointment case opened." },
+        { id: "d2", case_id: "preview_001", type: "call_completed", timestamp: yesterday, title: "Initial call completed", description: "ISP Support confirmed appointment.", call_id: "call_001" },
+        { id: "d3", case_id: "preview_001", type: "commitment_created", timestamp: yesterday, title: "Commitment recorded", description: "Technician visit Saturday 2–4 PM." },
+        { id: "d4", case_id: "preview_001", type: "commitment_broken", timestamp: yesterday, title: "Promise broken", description: "Technician did not arrive during the promised window." },
+        { id: "d5", case_id: "preview_001", type: "escalation_started", timestamp: yesterday, title: "Escalation call started", description: "Callwaka is contacting ISP Support." },
+        { id: "d6", case_id: "preview_001", type: "escalation_completed", timestamp: now, title: "Escalation resolved", description: "New appointment secured after escalation." },
+        { id: "d7", case_id: "preview_001", type: "commitment_created", timestamp: now, title: "New commitment recorded", description: "Replacement technician visit Saturday 2–4 PM. Reference #88213." },
       ],
     };
   }
@@ -188,15 +188,15 @@ function buildDemoCase(stage: number): Case {
       current_commitment: { id: "dc2", description: "Replacement technician visit", due_at: new Date(Date.now() - 3600000 * 2).toISOString(), status: "fulfilled", verification_method: "user_confirm" },
       next_action: null,
       timeline: [
-        { id: "d1", case_id: "demo_001", type: "case_created", timestamp: yesterday, title: "Case created", description: "ISP Technician Appointment case opened." },
-        { id: "d2", case_id: "demo_001", type: "call_completed", timestamp: yesterday, title: "Initial call completed", description: "ISP Support confirmed appointment.", call_id: "call_001" },
-        { id: "d3", case_id: "demo_001", type: "commitment_created", timestamp: yesterday, title: "Commitment recorded", description: "Technician visit Saturday 2–4 PM." },
-        { id: "d4", case_id: "demo_001", type: "commitment_broken", timestamp: yesterday, title: "Promise broken", description: "Technician did not arrive during the promised window." },
-        { id: "d5", case_id: "demo_001", type: "escalation_started", timestamp: yesterday, title: "Escalation call started", description: "Kept contacted ISP Support." },
-        { id: "d6", case_id: "demo_001", type: "escalation_completed", timestamp: yesterday, title: "Escalation resolved", description: "New appointment secured." },
-        { id: "d7", case_id: "demo_001", type: "commitment_created", timestamp: yesterday, title: "New commitment recorded", description: "Replacement technician Saturday 2–4 PM." },
-        { id: "d8", case_id: "demo_001", type: "commitment_fulfilled", timestamp: now, title: "Promise fulfilled", description: "Technician arrived at 2:18 PM. Internet service restored." },
-        { id: "d9", case_id: "demo_001", type: "case_resolved", timestamp: now, title: "Case resolved", description: "ISP Technician Appointment — Kept followed through." },
+        { id: "d1", case_id: "preview_001", type: "case_created", timestamp: yesterday, title: "Case created", description: "ISP Technician Appointment case opened." },
+        { id: "d2", case_id: "preview_001", type: "call_completed", timestamp: yesterday, title: "Initial call completed", description: "ISP Support confirmed appointment.", call_id: "call_001" },
+        { id: "d3", case_id: "preview_001", type: "commitment_created", timestamp: yesterday, title: "Commitment recorded", description: "Technician visit Saturday 2–4 PM." },
+        { id: "d4", case_id: "preview_001", type: "commitment_broken", timestamp: yesterday, title: "Promise broken", description: "Technician did not arrive during the promised window." },
+        { id: "d5", case_id: "preview_001", type: "escalation_started", timestamp: yesterday, title: "Escalation call started", description: "Callwaka contacted ISP Support." },
+        { id: "d6", case_id: "preview_001", type: "escalation_completed", timestamp: yesterday, title: "Escalation resolved", description: "New appointment secured." },
+        { id: "d7", case_id: "preview_001", type: "commitment_created", timestamp: yesterday, title: "New commitment recorded", description: "Replacement technician Saturday 2–4 PM." },
+        { id: "d8", case_id: "preview_001", type: "commitment_fulfilled", timestamp: now, title: "Promise fulfilled", description: "Technician arrived at 2:18 PM. Internet service restored." },
+        { id: "d9", case_id: "preview_001", type: "case_resolved", timestamp: now, title: "Case resolved", description: "ISP Technician Appointment — Callwaka followed through." },
       ],
     };
   }
@@ -301,7 +301,7 @@ export default function App() {
       aria-live="polite"
     >
       <span className="text-xs font-semibold text-amber-700 uppercase tracking-wide">
-        Demo mode
+        Preview
       </span>
       <span className="text-xs text-amber-600">
         {demoStage === 0 && "Starting…"}
@@ -313,14 +313,14 @@ export default function App() {
         {demoStage === 6 && "Promise broken — technician did not arrive"}
         {demoStage === 7 && "Escalating with ISP Support…"}
         {demoStage === 8 && "New commitment secured — Saturday 2–4 PM"}
-        {demoStage === 9 && "Case resolved — Kept followed through."}
+        {demoStage === 9 && "Case resolved — Callwaka followed through."}
       </span>
       {demoStage === 9 && (
         <button
           onClick={() => { setDemoMode(false); setDemoCase(null); setDemoStage(0); }}
           className="ml-auto text-xs font-medium text-amber-700 hover:text-amber-900 focus:outline-none"
         >
-          Exit demo
+          Exit preview
         </button>
       )}
     </div>

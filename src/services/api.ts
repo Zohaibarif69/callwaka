@@ -28,7 +28,7 @@ async function withFallback<T>(label: string, live: () => Promise<T>, fallback: 
   } catch (err) {
     const message = err instanceof Error ? err.message : "Unknown error";
     if (process.env.NODE_ENV !== "production") {
-      console.warn(`[Kept] Live "${label}" failed, falling back to sample data:`, message);
+      console.warn(`[Callwaka] Live "${label}" failed, falling back to sample data:`, message);
     }
     setConnectionState("fallback", message);
     return fallback();
@@ -64,7 +64,7 @@ export const CaseService = {
     // Cancel is deliberately NOT run through withFallback like the reads
     // above. Silently "succeeding" via the in-memory mock while a real case
     // is still active on the real backend would be the worst possible
-    // failure mode here — the person would believe Kept stopped calling
+    // failure mode here — the person would believe Callwaka stopped calling
     // when it didn't. If we're already in demo/fallback mode (no real
     // backend at all this session), cancelling the mock case is correct and
     // safe; otherwise a failure needs to surface as a real error.

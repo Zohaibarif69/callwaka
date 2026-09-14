@@ -6,12 +6,12 @@
  * open for the minutes a real phone call can take. Instead every call is
  * created with a `webhook_url`, CALL-E dials in the background, and
  * `/api/calle/webhook` receives the terminal result and drives the state
- * machine forward. This mirrors the doc's "Kept enters a wait state" model.
+ * machine forward. This mirrors the doc's "Callwaka enters a wait state" model.
  */
 
 const CALLE_BASE_URL = process.env.CALLE_BASE_URL ?? "https://api.heycall-e.com";
 const CALLE_API_KEY = process.env.CALLE_API_KEY;
-const APP_BASE_URL = process.env.APP_BASE_URL; // e.g. https://kept.vercel.app
+const APP_BASE_URL = process.env.APP_BASE_URL; // e.g. https://callwaka.vercel.app
 
 export interface CreateCallParams {
   task: string;

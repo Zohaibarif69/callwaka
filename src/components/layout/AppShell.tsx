@@ -1,7 +1,7 @@
 import { useState, type ReactNode } from "react";
 import { Menu, X, Bell } from "lucide-react";
 import Sidebar from "./Sidebar";
-import KeptLogo from "../ui/KeptLogo";
+import CallwakaLogo from "../ui/CallwakaLogo";
 import type { NavigateFn } from "../../types";
 
 interface Props {
@@ -35,9 +35,9 @@ export default function AppShell({
         <button
           onClick={() => { setMobileOpen(false); navigate({ page: "overview" }); }}
           className="hover:opacity-80 transition-opacity focus:outline-none"
-          aria-label="kept — go to overview"
+          aria-label="callwaka — go to overview"
         >
-          <KeptLogo />
+          <CallwakaLogo />
         </button>
         <div className="flex items-center gap-2">
           <button

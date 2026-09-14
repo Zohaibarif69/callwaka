@@ -81,18 +81,18 @@ export default function Overview({ navigate, demoMode, demoStage, demoCase, onRu
           <h1 className="text-2xl font-semibold text-gray-900">{greeting}</h1>
           <p className="text-sm text-gray-500 mt-1">
             {demoMode && demoStage > 0
-              ? "Demo in progress — watching the case lifecycle unfold."
+              ? "Walkthrough in progress — watching the case lifecycle unfold."
               : "Here's what's happening with your cases."}
           </p>
         </div>
         {!demoMode && (
           <button
             onClick={onRunDemo}
-            className="flex items-center gap-2 h-9 px-4 text-sm font-medium text-gray-700 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors shadow-[0_1px_2px_rgba(0,0,0,0.04)] focus:outline-none focus:ring-2 focus:ring-blue-500"
-            aria-label="Run demo to see the full case lifecycle"
+            className="flex items-center gap-2 h-9 px-4 text-sm font-medium text-white bg-gray-900 border border-gray-900 rounded-lg hover:bg-gray-800 transition-colors shadow-[0_1px_2px_rgba(0,0,0,0.08)] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            aria-label="Preview the full case lifecycle"
           >
-            <Play className="size-3.5 text-gray-400" />
-            Run demo
+            <Play className="size-3.5 text-white/80" />
+            Preview walkthrough
           </button>
         )}
       </div>
@@ -147,7 +147,7 @@ export default function Overview({ navigate, demoMode, demoStage, demoCase, onRu
             <CheckCircle className="size-4 text-green-600 shrink-0" />
             <div>
               <p className="text-sm font-semibold text-green-800">Nothing needs your attention</p>
-              <p className="text-xs text-green-600 mt-0.5">Kept is handling everything on track.</p>
+              <p className="text-xs text-green-600 mt-0.5">Callwaka is handling everything on track.</p>
             </div>
           </div>
         ) : (
@@ -176,7 +176,7 @@ export default function Overview({ navigate, demoMode, demoStage, demoCase, onRu
                     </p>
                     {c.next_action && (
                       <p className="text-xs text-gray-600 mt-1.5">
-                        Kept is{" "}
+                        Callwaka is{" "}
                         {c.next_action.type === "escalate"
                           ? "preparing an escalation call."
                           : `scheduling a ${c.next_action.type}.`}

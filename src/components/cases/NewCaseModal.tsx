@@ -48,7 +48,7 @@ export default function NewCaseModal({ open, onClose, onCreated }: Props) {
 
   const handleReview = () => {
     if (!description.trim()) {
-      setError("Please describe what you need Kept to handle.");
+      setError("Please describe what you need Callwaka to handle.");
       return;
     }
     if (!phone.trim()) {
@@ -94,7 +94,7 @@ export default function NewCaseModal({ open, onClose, onCreated }: Props) {
 
   const title =
     step === "input"
-      ? "What do you need Kept to handle?"
+      ? "What do you need Callwaka to handle?"
       : step === "review"
       ? "Review your case"
       : "Creating case…";
@@ -104,7 +104,7 @@ export default function NewCaseModal({ open, onClose, onCreated }: Props) {
       {step === "input" && (
         <div className="p-6 space-y-5">
           <p className="text-sm text-gray-500">
-            Tell Kept what happened. It will take it from there.
+            Tell Callwaka what happened. It will take it from there.
           </p>
 
           <div className="space-y-1">
@@ -155,7 +155,7 @@ export default function NewCaseModal({ open, onClose, onCreated }: Props) {
               className="w-full h-10 text-sm border border-gray-200 rounded-lg px-3 text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
             <p className="text-xs text-gray-400">
-              If you give us this, Kept calls <span className="font-medium text-gray-500">you</span> to verify the
+              If you give us this, Callwaka calls <span className="font-medium text-gray-500">you</span> to verify the
               outcome (e.g. "did the technician show up?") instead of asking the other party.
             </p>
           </div>
@@ -239,7 +239,7 @@ export default function NewCaseModal({ open, onClose, onCreated }: Props) {
       {step === "review" && (
         <div className="p-6 space-y-5">
           <p className="text-sm text-gray-500">
-            Confirm the details before Kept starts tracking.
+            Confirm the details before Callwaka starts tracking.
           </p>
 
           <div className="space-y-4 bg-slate-50 rounded-xl p-4">
@@ -248,7 +248,7 @@ export default function NewCaseModal({ open, onClose, onCreated }: Props) {
               <p className="text-sm text-gray-900">{description || PARSED_PREVIEW.problem}</p>
             </div>
             <div>
-              <p className="text-xs text-gray-400 font-medium uppercase tracking-wide mb-1">Who Kept will contact</p>
+              <p className="text-xs text-gray-400 font-medium uppercase tracking-wide mb-1">Who Callwaka will contact</p>
               <p className="text-sm text-gray-900">{phone}</p>
             </div>
             {userPhone && (

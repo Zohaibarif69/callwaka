@@ -111,10 +111,10 @@ export default function ActiveCallModal({
     purpose === "escalation" ? "Escalation call" : purpose === "verification" ? "Verification call" : "Calling";
   const footerText =
     purpose === "escalation"
-      ? "Kept is escalating because the previous commitment was broken."
+      ? "Callwaka is escalating because the previous commitment was broken."
       : purpose === "verification"
-      ? "Kept is checking whether the commitment was fulfilled."
-      : "Kept is securing a specific, trackable commitment.";
+      ? "Callwaka is checking whether the commitment was fulfilled."
+      : "Callwaka is securing a specific, trackable commitment.";
 
   const mins = Math.floor(elapsed / 60);
   const secs = elapsed % 60;
@@ -124,10 +124,10 @@ export default function ActiveCallModal({
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       <div className="absolute inset-0 bg-gray-900/60 backdrop-blur-sm" aria-hidden="true" />
       <div className="relative bg-white rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.15)] w-full max-w-sm p-8 flex flex-col items-center text-center">
-        {/* Demo badge — only for the scripted demo, never for a real call */}
+        {/* Preview badge — only for the scripted walkthrough, never for a real call */}
         {!live && (
           <span className="absolute top-4 right-4 text-xs font-semibold text-amber-600 bg-amber-50 px-2.5 py-1 rounded-full">
-            DEMO MODE
+            PREVIEW
           </span>
         )}
 

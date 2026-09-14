@@ -38,7 +38,7 @@ export async function POST(req: NextRequest) {
 
   try {
     // If the user already knows what was promised, skip the initial call —
-    // register the commitment directly and let Kept take over from there.
+    // register the commitment directly and let Callwaka take over from there.
     if (body.commitment && body.deadline) {
       const caseRow = await sm.startCaseWithKnownCommitment({
         title,

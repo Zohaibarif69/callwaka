@@ -5,7 +5,7 @@ import type { CalleCallResult } from "@/src/lib/calle";
 
 /**
  * CALL-E posts here when a call reaches a terminal state (completed, failed,
- * no_answer, busy, voicemail). This is the moment Kept's state machine
+ * no_answer, busy, voicemail). This is the moment Callwaka's state machine
  * actually advances: initial call -> commitment; verification -> resolve or
  * escalate; escalation -> new commitment.
  *

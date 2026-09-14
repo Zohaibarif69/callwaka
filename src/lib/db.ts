@@ -15,7 +15,7 @@ import fs from "node:fs";
  */
 const DB_PATH =
   process.env.DATABASE_PATH ??
-  (process.env.VERCEL ? "/tmp/kept.db" : path.join(process.cwd(), "data", "kept.db"));
+  (process.env.VERCEL ? "/tmp/callwaka.db" : path.join(process.cwd(), "data", "callwaka.db"));
 
 function ensureDir(filePath: string) {
   const dir = path.dirname(filePath);
@@ -24,9 +24,9 @@ function ensureDir(filePath: string) {
 
 declare global {
   // eslint-disable-next-line no-var
-  var __keptDb: Client | undefined;
+  var __callwakaDb: Client | undefined;
   // eslint-disable-next-line no-var
-  var __keptDbReady: Promise<void> | undefined;
+  var __callwakaDbReady: Promise<void> | undefined;
 }
 
 function createConnection(): Client {
@@ -109,12 +109,12 @@ async function migrate(db: Client) {
 
 /** Always await this before running any query — ensures the schema exists first, exactly once. */
 export async function getDb(): Promise<Client> {
-  if (!globalThis.__keptDb) {
-    globalThis.__keptDb = createConnection();
-    globalThis.__keptDbReady = migrate(globalThis.__keptDb);
+  if (!globalThis.__callwakaDb) {
+    globalThis.__callwakaDb = createConnection();
+    globalThis.__callwakaDbReady = migrate(globalThis.__callwakaDb);
   }
-  await globalThis.__keptDbReady;
-  return globalThis.__keptDb;
+  await globalThis.__callwakaDbReady;
+  return globalThis.__callwakaDb;
 }
 
 

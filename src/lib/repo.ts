@@ -353,14 +353,14 @@ function deriveNextAction(row: CaseRow, commitment: CommitmentRow | undefined) {
     return {
       type: "verification_call",
       scheduled_at: commitment.due_at,
-      description: `Kept will verify whether "${commitment.description}" was fulfilled once it comes due.`,
+      description: `Callwaka will verify whether "${commitment.description}" was fulfilled once it comes due.`,
     };
   }
   if (commitment.status === "broken") {
     return {
       type: "escalation_call",
       scheduled_at: new Date().toISOString(),
-      description: `Kept will call ${row.counterparty_name} to escalate the broken commitment and secure a new one.`,
+      description: `Callwaka will call ${row.counterparty_name} to escalate the broken commitment and secure a new one.`,
     };
   }
   return null;
