@@ -102,6 +102,43 @@ scripts/
                           a real running dev server
 ```
 
+## Keeping the demo data even after Turso is connected
+
+By default the 3 demo cases (ISP technician, insurance refund, StreamPlus
+cancellation) only exist as **in-memory fallback data** in
+`src/services/mockApi.ts`. They show up whenever `realApi.ts` fails (no
+Turso, no data yet, etc.) — but the instant a real backend responds
+successfully, `services/api.ts` switches to it, and since a fresh database
+starts empty, all 5 screens (Overview, Cases, Calls, Commitments, Activity)
+go blank.
+
+To make these 3 cases **real, persistent rows** instead of a fallback —
+so they're still there once Turso is connected, and survive restarts and
+redeploys — run:
+
+```bash
+npm run seed
+```
+
+This writes the exact same 3 cases (same ids, titles, commitments, calls,
+and timeline events as `mockApi.ts`) straight into whichever database
+`src/lib/db.ts` is currently pointed at:
+
+- No `TURSO_DATABASE_URL` set → seeds your local file (`./data/callwaka.db`).
+- `TURSO_DATABASE_URL` + `TURSO_AUTH_TOKEN` set → seeds your real Turso database.
+
+It's safe to run more than once — every insert is `INSERT OR IGNORE` keyed
+on the same fixed ids, so re-running is a no-op if the rows already exist.
+Typical flow when setting up Turso for the first time:
+
+```bash
+turso db create callwaka
+turso db show callwaka --url            # -> TURSO_DATABASE_URL
+turso db tokens create callwaka         # -> TURSO_AUTH_TOKEN
+# put both in .env.local, then:
+npm run seed
+```
+
 ## Testing
 
 ```bash
