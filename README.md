@@ -1,45 +1,82 @@
 # Callwaka
 
-## The Problem
+> AI-powered follow-up for promises made over the phone.
 
-Companies make verbal promises over the phone all the time — "a technician will arrive Friday 9am-1pm," "your refund will be processed in 3 days," "we'll call you back by Tuesday." Once the call ends, that promise is unenforced. Nobody follows up when it's broken; the person just has to notice, remember, and call back themselves, often re-explaining the whole issue from scratch.
+Callwaka turns a verbal promise into a tracked case, follows its timeline, and automatically checks whether the promise was kept. When it was not, Callwaka calls back with the original ticket or reference number and works toward a new commitment.
 
-## What This Does
+The goal is simple: hold the other side accountable without making someone remember the deadline, place another call, or explain the whole story again.
 
-Callwaka turns a verbal promise into a tracked **Case**. It calls the other party to pin down a specific, confirmed commitment, waits until it's due, calls again to check whether it was actually kept, and if it wasn't, calls back on its own — referencing the original ticket — to demand a new commitment. It repeats this until the promise is fulfilled, or escalation stops making progress and a human needs to step in.
+## The Workflow
 
-The goal isn't to summarize a call. It's to hold the other side accountable for what they said, without a person having to babysit the timeline.
-
-## How It Works
-
-```
-Extract → Store → Wait → Verify → Escalate → Resolve
+```text
+Create case -> Secure commitment -> Wait -> Verify -> Resolve or escalate
 ```
 
-1. **Extract** — CALL-E calls the counterparty to secure a specific commitment (what will happen, on what date, in what window, plus a reference number), and reads it back to confirm before hanging up.
-2. **Store** — the commitment is saved with a due date. Nothing happens until that date arrives.
-3. **Wait** — a scheduled job checks periodically for commitments that have come due.
-4. **Verify** — a call goes out (usually to the user) to confirm whether the promise was kept.
-5. **Resolve or Escalate** — fulfilled closes the case. Broken triggers an automatic follow-up call that references the original ticket and works toward a new commitment.
-6. **Repeat** — this cycle continues until the case resolves, or an escalation limit is reached and the case is flagged for a human to take over.
+1. **Create a case** with the counterparty, phone number, issue, and any ticket or reference number.
+2. **Secure a commitment** through an outbound CALL-E voice call. The commitment includes what will happen and when.
+3. **Wait until it is due.** A scheduled check finds commitments that are ready for verification.
+4. **Verify the outcome** with a follow-up call.
+5. **Resolve or escalate.** A kept promise closes the case. A broken promise triggers an escalation call that references the original case.
+6. **Repeat when necessary** until the case is resolved or needs human attention.
 
-Call results come back asynchronously through a webhook rather than blocking a request, since a real phone call can take minutes to finish.
+Call results are processed asynchronously through a webhook. Local development also supports polling open calls when a public webhook URL is not available.
 
-## Stack
+## Features
 
-- Next.js (App Router) + React + TypeScript
-- Turso (libSQL) for storage — same code path locally and in production
-- [CALL-E](https://www.heycall-e.com/) for the outbound phone calls
+- Case dashboard with active, pending, attention, and resolved counts
+- Commitment tracking with due dates and next actions
+- Call history and activity timeline for every case
+- Automatic verification of due commitments
+- Automatic escalation after a broken promise
+- Ticket and reference number tracking across follow-up calls
+- Live call status and in-progress call modal
+- Guided demo walkthrough of the complete case lifecycle
+- Local SQLite development with an optional Turso database for production
+- Vercel Cron support for scheduled checks
 
-## Setup
+## Demo
+
+Run the app locally and select **Preview walkthrough** from the overview screen to see a case move through the full lifecycle:
+
+```text
+Created -> Calling -> Commitment recorded -> Waiting -> Verifying
+-> Promise broken -> Escalating -> New commitment -> Resolved
+```
+
+## Tech Stack
+
+- [Next.js](https://nextjs.org/) 15 with the App Router
+- [React](https://react.dev/) 19
+- TypeScript
+- Tailwind CSS
+- [CALL-E](https://www.heycall-e.com/) for outbound voice calls
+- SQLite locally and [Turso](https://turso.tech/) libSQL in production
+- Vercel Cron for scheduled commitment checks
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js 20 or later
+- A CALL-E API key for placing real calls
+
+### Install and run
 
 ```bash
 npm install
-cp .env.example .env.local   # add your CALLE_API_KEY
+cp .env.example .env.local
 npm run dev
 ```
 
-Open http://localhost:3000.
+On Windows PowerShell, use this instead of `cp`:
+
+```powershell
+Copy-Item .env.example .env.local
+```
+
+Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+Without a CALL-E key, the dashboard, local database, demo walkthrough, and state machine tests still work. Real outbound calls require `CALLE_API_KEY`.
 
 ## Environment Variables
 
